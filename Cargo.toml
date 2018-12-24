@@ -1,0 +1,11 @@
+[package]
+name = "image_mandelbrot"
+version = "0.1.0"
+authors = ["userman"]
+
+[dependencies]
+image = "0.20.1"
+palette = "0.4"
+num_cpus = "1.8.0"
+num-complex = "0.2.1"
+argparse = "0.2.2"
