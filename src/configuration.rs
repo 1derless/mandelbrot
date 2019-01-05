@@ -1,6 +1,6 @@
 extern crate argparse;
 
-use self::argparse::{ArgumentParser, Store};
+use self::argparse::{ArgumentParser, Store, StoreTrue};
 
 #[derive(Clone)]
 pub struct Configuration {
@@ -11,6 +11,7 @@ pub struct Configuration {
     pub y_min: f64,
     pub y_max: f64,
     pub file: String,
+    pub silent: bool,
 }
 
 impl Configuration {
@@ -23,6 +24,7 @@ impl Configuration {
             y_min: -1.3, // -1.3
             y_max: 1.3,  //  1.3
             file: String::from("output.png"),
+            silent: false,
         };
 
         let mut res_string = String::from("512x512");
@@ -31,6 +33,7 @@ impl Configuration {
         let mut y_min = String::from("-1.3");
         let mut y_max = String::from("1.3");
         let mut file = String::from("output.png");
+        let mut silent = false;
 
         {
             let mut parser = ArgumentParser::new();
@@ -66,6 +69,11 @@ impl Configuration {
                 Store,
                 "Custom output file location.",
             );
+            parser.refer(&mut silent).add_option(
+                &["-s", "--silent"],
+                StoreTrue,
+                "Prints to stdout the time taken.",
+            );
 
             parser.parse_args_or_exit();
         }
@@ -89,6 +97,7 @@ impl Configuration {
             y_min: y_min.parse().unwrap_or_else(|_| default.y_min),
             y_max: y_max.parse().unwrap_or_else(|_| default.y_max),
             file,
+            silent,
         }
     }
 }
