@@ -86,7 +86,7 @@ pub fn run(config: Configuration) {
 
         let colour = move |c| match c {
             MandelResult::Outside(i) => {
-                let components = LinSrgb::from(grad.get((i / 25.0) % 1.0));
+                let components = grad.get((i / 25.0) % 1.0);
                 image::Rgb([
                     (components.red * 255.0) as u8,
                     (components.green * 255.0) as u8,

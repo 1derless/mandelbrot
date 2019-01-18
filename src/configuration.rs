@@ -79,7 +79,7 @@ impl Configuration {
         }
 
         let res_string = res_string.to_string();
-        let mut dimentions = res_string.split("x");
+        let mut dimentions = res_string.split('x');
 
         Configuration {
             output_w: dimentions
