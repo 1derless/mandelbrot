@@ -54,8 +54,7 @@ pub fn mandelbrot_loop(
 }
 
 pub fn run(config: Configuration) {
-    // The gradient isn't constant because I can't work out what type it is
-    //  and apparently rustc can't either...
+    // The gradient isn't constant because its type is complicated.
     let grad = Gradient::new(vec![
         LinSrgb::new(1.0, 0.0, 0.0),
         LinSrgb::new(0.1, 0.1, 0.1),
