@@ -1,14 +1,9 @@
-extern crate image;
-extern crate num_complex;
-extern crate num_cpus;
-extern crate palette;
-
 mod configuration;
 mod mandelbrot;
 mod region;
 
 pub use configuration::Configuration;
-use mandelbrot::{iterate_mandelbrot, MandelResult};
+pub use mandelbrot::{iterate_mandelbrot, MandelResult};
 use region::Region;
 
 use image::imageops::replace;

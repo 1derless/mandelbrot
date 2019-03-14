@@ -1,6 +1,4 @@
-extern crate argparse;
-
-use self::argparse::{ArgumentParser, Store, StoreTrue};
+use argparse::{ArgumentParser, Store, StoreTrue};
 
 #[derive(Clone)]
 pub struct Configuration {
