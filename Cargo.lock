@@ -138,7 +138,7 @@ dependencies = [
 
 [[package]]
 name = "image_mandelbrot"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "argparse 0.2.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "image 0.20.1 (registry+https://github.com/rust-lang/crates.io-index)",

@@ -51,13 +51,19 @@ pub fn mandelbrot_loop(
 pub fn run(config: Configuration) {
     // The gradient isn't constant because its type is complicated.
     let grad = Gradient::new(vec![
-        LinSrgb::new(1.0, 0.0, 0.0),
+        /*LinSrgb::new(1.0, 0.0, 0.0),
         LinSrgb::new(0.1, 0.1, 0.1),
         LinSrgb::new(0.0, 1.0, 0.0),
         LinSrgb::new(0.1, 0.1, 0.1),
         LinSrgb::new(0.0, 0.0, 1.0),
         LinSrgb::new(0.1, 0.1, 0.1),
-        LinSrgb::new(1.0, 0.0, 0.0),
+        LinSrgb::new(1.0, 0.0, 0.0),*/
+        LinSrgb::new(0.0, 0.5, 1.0),
+        LinSrgb::new(1.0, 1.0, 1.0),
+        LinSrgb::new(0.5, 1.0, 0.0),
+        LinSrgb::new(1.0, 1.0, 1.0),
+        LinSrgb::new(1.0, 0.0, 0.5),
+        LinSrgb::new(1.0, 1.0, 1.0),
     ]);
 
     // Creates tiny views of the mandelbrot set fractal and puts them in a thread-safe vector.

@@ -15,7 +15,10 @@ fn main() {
     } else {
         let duration = time::Duration::span(|| run(config));
 
-        println!("Done in {} ms.", duration.num_milliseconds().separated_string());
+        println!(
+            "Done in {} ms.",
+            duration.num_milliseconds().separated_string()
+        );
     }
 }
 
