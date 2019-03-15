@@ -12,7 +12,7 @@ pub fn iterate_mandelbrot(c: Complex<f64>) -> MandelResult {
     let mut x = Complex::new(0.0, 0.0);
 
     for i in 0..MAX_ITERATIONS {
-        x = x.powf(3.0 + 8.0/9.0) + c;
+        x = x.powf(2.0) + c;
 
         if x.norm_sqr() > MAX_MAGNITUDE.powi(2) {
             // Removing the smoothing does not seem to save any time,
