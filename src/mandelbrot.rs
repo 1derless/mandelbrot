@@ -1,7 +1,8 @@
 use num_complex::Complex;
 
 const MAX_ITERATIONS: u8 = 255;
-const MAX_MAGNITUDE: f64 = 1024.0;
+//Apparently this only needs to be 2.0, thanks Ben Sparks from Numberphile.
+const MAX_MAGNITUDE: f64 = 2.0;
 
 pub enum MandelResult {
     Inside,
