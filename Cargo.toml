@@ -4,6 +4,10 @@ version = "0.2.0"
 authors = ["userman"]
 edition = "2018"
 
+[features]
+default = ["smoothing"]
+smoothing = []
+
 [dependencies]
 image = "0.20.1"
 palette = "0.4"
@@ -12,3 +16,4 @@ num-complex = "0.2.1"
 argparse = "0.2.2"
 time = "0.1.41"
 separator = "0.4.0"
+rayon = "1.0.3"
