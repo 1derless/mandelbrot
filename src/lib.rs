@@ -25,6 +25,7 @@ pub fn run(config: Configuration) {
         LinSrgb::new(1.0, 1.0, 1.0),
         LinSrgb::new(1.0, 0.0, 0.5),
         LinSrgb::new(1.0, 1.0, 1.0),
+        LinSrgb::new(0.0, 0.5, 1.0),
     ]);
 
     //todo: separate below into distinct functions.
