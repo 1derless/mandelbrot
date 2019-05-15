@@ -1,6 +1,6 @@
 [package]
 name = "image_mandelbrot"
-version = "0.2.0"
+version = "0.2.1"
 authors = ["userman"]
 edition = "2018"
 

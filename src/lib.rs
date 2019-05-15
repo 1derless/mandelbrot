@@ -10,7 +10,6 @@ use palette::{Gradient, LinSrgb};
 use rayon::prelude::*;
 
 pub fn run(config: Configuration) {
-    // The gradient isn't constant because its type is complicated.
     let grad = Gradient::new(vec![
         /* LinSrgb::new(1.0, 0.0, 0.0),
         LinSrgb::new(0.1, 0.1, 0.1),
@@ -28,10 +27,8 @@ pub fn run(config: Configuration) {
         LinSrgb::new(0.0, 0.5, 1.0),
     ]);
 
-    //todo: separate below into distinct functions.
-
     // Iterates over all coordinates, in parallel.
-    let mut results: Vec<MandelResult> = (0..config.output_h)
+    let mut results = (0..config.output_h)
         .into_par_iter()
         .flat_map(|y| {
             (0..config.output_w)
@@ -39,6 +36,7 @@ pub fn run(config: Configuration) {
                 .rev()
                 .map(move |x| (x, y))
         })
+        // Computes whether the current number is within the set / its escape speed.
         .map(|(x, y)| {
             let c = Complex::new(
                 x as f64 / config.output_w as f64 * (config.x_max - config.x_min) + config.x_min,
@@ -47,17 +45,9 @@ pub fn run(config: Configuration) {
 
             iterate_mandelbrot(c)
         })
-        .collect();
-
-    let mut master_image = RgbImage::new(config.output_w, config.output_h);
-
-    println!("Done finding escape velocity, now colouring by numbers.");
-
-    // Not really worth parallelising seeing as it is so quick.
-    for pixel in master_image.pixels_mut() {
-        //todo: optimisation to stop using pop here below.
-        if let Some(result) = results.pop() {
-            let colour = match result {
+        // Translates escape speed to colour.
+        .map(|result| {
+            match result {
                 MandelResult::Outside(i) => {
                     let components = grad.get((i / 25.0) % 1.0);
                     image::Rgb([
@@ -67,7 +57,16 @@ pub fn run(config: Configuration) {
                     ])
                 }
                 MandelResult::Inside => image::Rgb([0u8, 0u8, 0u8]),
-            };
+            }
+
+        })
+        .collect::<Vec<image::Rgb<u8>>>();
+
+    let mut master_image = RgbImage::new(config.output_w, config.output_h);
+
+    // Creates an image made from the results.
+    for pixel in master_image.pixels_mut() {
+        if let Some(colour) = results.pop() {
             *pixel = colour;
         }
     }
