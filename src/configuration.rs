@@ -35,42 +35,45 @@ impl Configuration {
 
         {
             let mut parser = ArgumentParser::new();
-            parser.set_description("A mandelbrot set plotter.");
+            parser.set_description("A mandelbrot set plotter. \
+            Any unspecified option will be left as default.");
 
             parser.refer(&mut res_string).add_option(
                 &["-r", "--resolution"],
                 Store,
-                "Custom output resolution.",
+                "Specifies custom output resolution, \
+                in the format that fits the format [width]x[height].",
             );
             parser.refer(&mut x_min).add_option(
                 &["-x", "--min_x"],
                 Store,
-                "Custom minimum real value.",
+                "Specifies custom minimum real value.",
             );
             parser.refer(&mut x_max).add_option(
                 &["-X", "--max_x"],
                 Store,
-                "Custom maximum real value.",
+                "Specifies custom maximum real value.",
             );
             parser.refer(&mut y_min).add_option(
                 &["-y", "--min_y"],
                 Store,
-                "Custom minimum imaginary value.",
+                "Specifies custom minimum imaginary value.",
             );
             parser.refer(&mut y_max).add_option(
                 &["-Y", "--max_y"],
                 Store,
-                "Custom maximum imaginary value.",
+                "Specifies custom maximum imaginary value.",
             );
             parser.refer(&mut file).add_option(
                 &["-o", "--output"],
                 Store,
-                "Custom output file location.",
+                "Specifies custom output file location. \
+                 A valid format must also be specified though the file extension.",
             );
             parser.refer(&mut silent).add_option(
                 &["-s", "--silent"],
                 StoreTrue,
-                "Prints to stdout the time taken.",
+                "If absent, prints the time taken to stdout.",
             );
 
             parser.parse_args_or_exit();

@@ -28,14 +28,9 @@ pub fn run(config: Configuration) {
     ]);
 
     // Iterates over all coordinates, in parallel.
-    let mut results = (0..config.output_h)
+    let results = (0..config.output_h)
         .into_par_iter()
-        .flat_map(|y| {
-            (0..config.output_w)
-                .into_par_iter()
-                .rev()
-                .map(move |x| (x, y))
-        })
+        .flat_map(|y| (0..config.output_w).into_par_iter().map(move |x| (x, y)))
         // Computes whether the current number is within the set / its escape speed.
         .map(|(x, y)| {
             let c = Complex::new(
@@ -46,29 +41,24 @@ pub fn run(config: Configuration) {
             iterate_mandelbrot(c)
         })
         // Translates escape speed to colour.
-        .map(|result| {
-            match result {
-                MandelResult::Outside(i) => {
-                    let components = grad.get((i / 25.0) % 1.0);
-                    image::Rgb([
-                        (components.red * 255.0) as u8,
-                        (components.green * 255.0) as u8,
-                        (components.blue * 255.0) as u8,
-                    ])
-                }
-                MandelResult::Inside => image::Rgb([0u8, 0u8, 0u8]),
+        .map(|result| match result {
+            MandelResult::Outside(i) => {
+                let components = grad.get((i / 25.0) % 1.0);
+                image::Rgb([
+                    (components.red * 255.0) as u8,
+                    (components.green * 255.0) as u8,
+                    (components.blue * 255.0) as u8,
+                ])
             }
-
+            MandelResult::Inside => image::Rgb([0u8, 0u8, 0u8]),
         })
         .collect::<Vec<image::Rgb<u8>>>();
 
-    let mut master_image = RgbImage::new(config.output_w, config.output_h);
 
     // Creates an image made from the results.
-    for pixel in master_image.pixels_mut() {
-        if let Some(colour) = results.pop() {
-            *pixel = colour;
-        }
+    let mut master_image = RgbImage::new(config.output_w, config.output_h);
+    for (pixel, colour) in master_image.pixels_mut().zip(results) {
+        *pixel = colour;
     }
 
     // Saves resultant image to disk.
