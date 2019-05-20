@@ -35,14 +35,16 @@ impl Configuration {
 
         {
             let mut parser = ArgumentParser::new();
-            parser.set_description("A mandelbrot set plotter. \
-            Any unspecified option will be left as default.");
+            parser.set_description(
+                "A mandelbrot set plotter. \
+                 Any unspecified option will be left as default.",
+            );
 
             parser.refer(&mut res_string).add_option(
                 &["-r", "--resolution"],
                 Store,
                 "Specifies custom output resolution, \
-                in the format that fits the format [width]x[height].",
+                 in the format that fits the format [width]x[height].",
             );
             parser.refer(&mut x_min).add_option(
                 &["-x", "--min_x"],
@@ -93,10 +95,10 @@ impl Configuration {
                 .unwrap()
                 .parse()
                 .unwrap_or_else(|_| default.output_h),
-            x_min: x_min.parse().unwrap_or_else(|_| default.x_min),
-            x_max: x_max.parse().unwrap_or_else(|_| default.x_max),
-            y_min: y_min.parse().unwrap_or_else(|_| default.y_min),
-            y_max: y_max.parse().unwrap_or_else(|_| default.y_max),
+            x_min: x_min.parse().unwrap_or(default.x_min),
+            x_max: x_max.parse().unwrap_or(default.x_max),
+            y_min: y_min.parse().unwrap_or(default.y_min),
+            y_max: y_max.parse().unwrap_or(default.y_max),
             file,
             silent,
         }
